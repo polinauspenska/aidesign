@@ -243,8 +243,15 @@
   .blueprint-panel .bp-item:first-child{border-left:none; padding-left:0;}
   .blueprint-panel .bp-val{font-family:'IBM Plex Mono',monospace; font-size:26px; color:var(--blue); font-weight:600;}
   .blueprint-panel .bp-label{font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.04em; margin-top:6px;}
-  @media(max-width:880px){.blueprint-panel{grid-template-columns:1fr 1fr; gap:24px;} .blueprint-panel .bp-item{border-left:none; padding:0;}}
-  @media(max-width:560px){.blueprint-panel{grid-template-columns:1fr;}}
+  .fade-in-panel{opacity:0; transform:translateY(28px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);}
+  .fade-in-panel.visible{opacity:1; transform:translateY(0);}
+  @media(max-width:880px){.blueprint-panel{grid-template-columns:1fr 1fr; gap:28px 24px;} .blueprint-panel .bp-item{border-left:none; padding:0;}}
+  @media(max-width:560px){
+    .blueprint-panel{grid-template-columns:1fr 1fr; gap:26px 18px; padding:24px 20px;}
+    .blueprint-panel .bp-item{border-left:1px solid var(--line-strong); padding-left:18px;}
+    .blueprint-panel .bp-item:nth-child(odd){border-left:none; padding-left:0;}
+    .blueprint-panel .bp-val{font-size:22px;}
+  }
 
   @media(max-width:880px){
     .hero-content{grid-template-columns:1fr; padding:0 24px 48px;}
@@ -534,7 +541,7 @@
   <div class="hero-progress" id="heroProgress"></div>
 
   <!-- Content -->
-  <div class="wrap hero-content" id="heroContent">
+  <div class="wrap hero-content" id="heroContent" style="grid-template-columns:1fr;">
     <div>
       <div class="hero-dossier"><span class="dash"></span><span class="uk">Досьє № XX-20XX · CC2–CC3</span><span class="en">Dossier No. XX-20XX · CC2–CC3</span></div>
       <h1>
@@ -550,11 +557,6 @@
         <a class="btn btn-ghost" href="#contact"><span class="uk">Отримати консультацію</span><span class="en">Request a consultation</span></a>
       </div>
     </div>
-    <div class="hero-stats">
-      <div><div class="hstat-num">$10M+</div><div class="hstat-label"><span class="uk">під наглядом</span><span class="en">under oversight</span></div></div>
-      <div><div class="hstat-num">1000+</div><div class="hstat-label"><span class="uk">обстежених об'єктів</span><span class="en">objects surveyed</span></div></div>
-      <div><div class="hstat-num">25</div><div class="hstat-label"><span class="uk">років практики</span><span class="en">years practice</span></div></div>
-    </div>
   </div>
 
   <!-- Scroll hint -->
@@ -566,9 +568,9 @@
 </section>
 
 <!-- Blueprint panel — seamless continuation of hero -->
-<div style="position:relative;z-index:1; border-bottom:1.5px solid var(--ink);">
+<div style="position:relative;z-index:1; border-bottom:1.5px solid var(--ink); padding:64px 0;">
   <div class="wrap">
-    <div class="blueprint-panel reg">
+    <div class="blueprint-panel reg fade-in-panel" id="statsPanel">
       <div class="rc1"></div><div class="rc2"></div>
       <div class="bp-item"><div class="bp-val">$10M+</div><div class="bp-label"><span class="uk">під наглядом</span><span class="en">under oversight</span></div></div>
       <div class="bp-item"><div class="bp-val">1000+</div><div class="bp-label"><span class="uk">обстежених об'єктів</span><span class="en">objects surveyed</span></div></div>
@@ -876,6 +878,21 @@
     html.setAttribute('lang', next);
     btn.textContent = next === 'uk' ? 'EN' : 'UA';
   });
+
+  /* ── Fade-in on scroll for stats panel ── */
+  (function(){
+    const panel = document.getElementById('statsPanel');
+    if (!panel) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          panel.classList.add('visible');
+          io.unobserve(panel);
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(panel);
+  })();
 
   /* ── Scroll-scrubbed hero animation ──
      Trick: add a tall spacer INSIDE hero so the page scrolls
