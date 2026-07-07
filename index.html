@@ -79,22 +79,33 @@
   .btn:hover{background:var(--paper); color:var(--blue);}
   .btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--ink);}
   .btn-ghost:hover{background:var(--ink); color:var(--paper);}
-  @media(max-width:880px){nav.links{display:none;}}
+  @media(max-width:880px){nav.links{display:none;} .nav-right a.btn{display:none;}}
 
   /* Mobile burger menu */
-  .burger-btn{display:none; flex-direction:column; justify-content:center; gap:5px; width:32px; height:24px; background:none; border:none; cursor:pointer; padding:0; flex-shrink:0;}
+  .burger-btn{display:none; flex-direction:column; justify-content:center; gap:5px; width:32px; height:24px; background:none; border:none; cursor:pointer; padding:0; flex-shrink:0; position:relative; z-index:61;}
   .burger-btn span{display:block; height:2px; background:var(--ink); width:100%; transition:transform .25s ease, opacity .25s ease;}
   .burger-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .burger-btn.open span:nth-child(2){opacity:0;}
   .burger-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  .mobile-menu{position:fixed; top:72px; left:0; right:0; bottom:0; background:var(--paper); z-index:49; transform:translateY(-12px); opacity:0; pointer-events:none; transition:transform .28s ease, opacity .28s ease; overflow-y:auto; border-top:1.5px solid var(--ink);}
-  .mobile-menu.open{transform:translateY(0); opacity:1; pointer-events:auto;}
-  .mobile-menu .wrap{padding:32px;}
-  .mobile-menu nav{display:flex; flex-direction:column;}
-  .mobile-menu nav a{font-family:'IBM Plex Mono',monospace; font-size:16px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); padding:18px 0; border-bottom:1px solid var(--line-strong);}
+  .mobile-menu{position:fixed; inset:0; background:var(--paper); z-index:60; opacity:0; pointer-events:none; transition:opacity .3s ease; overflow-y:auto;}
+  .mobile-menu.open{opacity:1; pointer-events:auto;}
+  .mobile-menu .wrap{padding:100px 32px 40px; min-height:100%; display:flex; flex-direction:column;}
+  .mobile-menu nav{display:flex; flex-direction:column; flex:1; justify-content:center;}
+  .mobile-menu nav a{font-family:'IBM Plex Mono',monospace; font-size:20px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); padding:16px 0; border-bottom:1px solid var(--line-strong);
+    opacity:0; transform:translateY(18px); transition:opacity .4s ease, transform .4s ease;}
+  .mobile-menu.open nav a:nth-child(1){transition-delay:.08s;}
+  .mobile-menu.open nav a:nth-child(2){transition-delay:.14s;}
+  .mobile-menu.open nav a:nth-child(3){transition-delay:.2s;}
+  .mobile-menu.open nav a:nth-child(4){transition-delay:.26s;}
+  .mobile-menu.open nav a:nth-child(5){transition-delay:.32s;}
+  .mobile-menu.open nav a:nth-child(6){transition-delay:.38s;}
+  .mobile-menu.open nav a{opacity:1; transform:translateY(0);}
   .mobile-menu nav a.current{color:var(--blue);}
-  .mobile-menu-foot{margin-top:28px; display:flex; flex-direction:column; gap:14px; align-items:flex-start;}
+  .mobile-menu-foot{margin-top:auto; padding-top:24px; border-top:1.5px solid var(--ink); display:flex; align-items:center; justify-content:space-between; gap:16px;
+    opacity:0; transform:translateY(18px); transition:opacity .4s ease, transform .4s ease; transition-delay:.42s;}
+  .mobile-menu.open .mobile-menu-foot{opacity:1; transform:translateY(0);}
   @media(max-width:880px){.burger-btn{display:flex;}}
+  @media(max-width:880px){#advisory, #faq{min-height:auto !important;}}
   @media(min-width:881px){.mobile-menu{display:none;}}
 
   section{position:relative; z-index:1; padding:100px 0;}
@@ -661,7 +672,7 @@
       <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
       <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
       <a href="cases.html"><span class="uk">Кейси</span><span class="en">Cases</span></a>
-      <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+      <a href="blog/articles.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
       <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
     </nav>
     <div class="nav-right">
@@ -676,10 +687,11 @@
         <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
         <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
         <a href="cases.html"><span class="uk">Кейси</span><span class="en">Cases</span></a>
-        <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+        <a href="blog/articles.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
         <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
       </nav>
       <div class="mobile-menu-foot">
+        <button class="lang-btn" id="langToggleMobile">EN</button>
         <a class="btn" href="#contact"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
       </div>
     </div>
@@ -956,7 +968,7 @@
 </section>
 
 <!-- ADVISORY -->
-<section id="advisory" class="position-section">
+<section id="advisory" class="position-section" style="align-items:flex-start; padding-top:100px; padding-bottom:60px;">
   <div class="wrap">
     <div class="file-id"><span class="dash"></span>ADVISORY</div>
     <h2 style="font-size:clamp(24px,3vw,36px); max-width:760px;"><span class="uk">Інженерний контур безпеки на кожному етапі</span><span class="en">An engineering safety circuit, at every stage</span></h2>
@@ -1046,7 +1058,7 @@
 <footer>
   <div class="wrap foot-row">
     <div>[КОМПАНІЯ ADVISORY] © 20XX</div>
-    <div style="display:flex; gap:24px;"><a href="mailto:[email]">[email]</a><a href="tel:[телефон]">[телефон]</a></div>
+    <div style="display:flex; gap:24px;"><a href="reports.html"><span class="uk">Звіти</span><span class="en">Reports</span></a><a href="mailto:[email]">[email]</a><a href="tel:[телефон]">[телефон]</a></div>
   </div>
 </footer>
 
@@ -1142,12 +1154,17 @@
   /* ── Lang toggle ── */
   const html = document.documentElement;
   const btn = document.getElementById('langToggle');
-  btn.addEventListener('click', () => {
+  const btnMobile = document.getElementById('langToggleMobile');
+  function switchLang(){
     const next = html.getAttribute('data-lang') === 'uk' ? 'en' : 'uk';
     html.setAttribute('data-lang', next);
     html.setAttribute('lang', next);
-    btn.textContent = next === 'uk' ? 'EN' : 'UA';
-  });
+    const label = next === 'uk' ? 'EN' : 'UA';
+    if (btn) btn.textContent = label;
+    if (btnMobile) btnMobile.textContent = label;
+  }
+  if (btn) btn.addEventListener('click', switchLang);
+  if (btnMobile) btnMobile.addEventListener('click', switchLang);
 
   /* Mobile burger menu */
   const burgerBtn = document.getElementById('burgerBtn');

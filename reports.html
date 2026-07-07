@@ -76,7 +76,7 @@
       <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
       <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
       <a href="cases.html"><span class="uk">Кейси</span><span class="en">Cases</span></a>
-      <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+      <a href="blog/articles.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
       <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
     </nav>
     <div class="nav-right">
@@ -91,10 +91,11 @@
         <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
         <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
         <a href="cases.html"><span class="uk">Кейси</span><span class="en">Cases</span></a>
-        <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+        <a href="blog/articles.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
         <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
       </nav>
       <div class="mobile-menu-foot">
+        <button class="lang-btn" id="langToggleMobile">EN</button>
         <a class="btn" href="contact.html"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
       </div>
     </div>
@@ -250,12 +251,17 @@
 <script>
   const html = document.documentElement;
   const btn = document.getElementById('langToggle');
-  btn.addEventListener('click', () => {
+  const btnMobile = document.getElementById('langToggleMobile');
+  function switchLang(){
     const next = html.getAttribute('data-lang') === 'uk' ? 'en' : 'uk';
     html.setAttribute('data-lang', next);
     html.setAttribute('lang', next);
-    btn.textContent = next === 'uk' ? 'EN' : 'UA';
-  });
+    const label = next === 'uk' ? 'EN' : 'UA';
+    if (btn) btn.textContent = label;
+    if (btnMobile) btnMobile.textContent = label;
+  }
+  if (btn) btn.addEventListener('click', switchLang);
+  if (btnMobile) btnMobile.addEventListener('click', switchLang);
 
   const burgerBtn = document.getElementById('burgerBtn');
   const mobileMenu = document.getElementById('mobileMenu');
