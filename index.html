@@ -107,7 +107,7 @@
     opacity:0; transform:translateY(18px); transition:opacity .4s ease, transform .4s ease; transition-delay:.42s;}
   .mobile-menu.open .mobile-menu-foot{opacity:1; transform:translateY(0);}
   @media(max-width:880px){.burger-btn{display:flex;}}
-  @media(max-width:880px){#advisory, #faq{min-height:auto !important;}}
+  @media(max-width:880px){#advisory, #faq, #processSection{min-height:auto !important;}}
   @media(min-width:881px){.mobile-menu{display:none;}}
 
   section{position:relative; z-index:1; padding:100px 0;}
@@ -321,9 +321,13 @@
   .process-section{position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; border-bottom:1.5px solid var(--ink);}
   .process-row{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:50px;}
   .pstep{padding:28px 22px; position:relative;}
-  .pstep .pstep-body{opacity:0; transform:translateY(20px); will-change:opacity, transform;}
-  .pstep .pframe-svg{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible;}
-  .pstep .pframe-rect{fill:none; stroke:var(--ink); stroke-width:1.5; vector-effect:non-scaling-stroke;}
+  .pstep .pstep-body{opacity:0; transform:translateY(20px); transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);}
+  .pstep.visible .pstep-body{opacity:1; transform:translateY(0);}
+  .pstep .pframe-side{position:absolute; background:var(--ink); z-index:2; pointer-events:none;}
+  .pstep .pframe-top{top:0; left:0; height:1px; width:100%; transform:scaleX(0); transform-origin:left center;}
+  .pstep .pframe-right{top:0; right:0; width:1px; height:100%; transform:scaleY(0); transform-origin:top center;}
+  .pstep .pframe-bottom{bottom:0; right:0; height:1px; width:100%; transform:scaleX(0); transform-origin:right center;}
+  .pstep .pframe-left{bottom:0; left:0; width:1px; height:100%; transform:scaleY(0); transform-origin:bottom center;}
   .pstep .pnum{font-family:'IBM Plex Mono',monospace; color:var(--blue); font-size:11px; display:block; margin-bottom:14px; letter-spacing:.08em;}
   .pstep h4{font-size:15px; margin-bottom:10px;}
   .pstep p{font-size:13px; color:var(--ink-dim);}
@@ -393,27 +397,27 @@
 
   /* Team grid — clickable dossier cards (founder + expert core) */
   .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink); margin-top:44px;}
-  .team-card{background:var(--paper); cursor:pointer; transition:box-shadow .3s ease, transform .3s ease; display:flex; flex-direction:column; border-right:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); position:relative;}
+  .team-card{background:var(--paper); cursor:pointer; transition:box-shadow .3s ease, transform .3s ease; display:flex; flex-direction:row; align-items:stretch; border-right:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); position:relative;}
   .team-card:hover{box-shadow:0 16px 36px -16px rgba(28,27,23,.35); transform:translateY(-3px); z-index:2;}
-  .team-photo{aspect-ratio:5/4; background:linear-gradient(145deg,#d4cbb5 0%,#c4bba2 100%); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-align:center; padding:16px; border-bottom:1.5px solid var(--ink); position:relative; overflow:hidden;}
+  .team-photo{aspect-ratio:auto; width:42%; flex-shrink:0; background:linear-gradient(145deg,#d4cbb5 0%,#c4bba2 100%); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-align:center; padding:16px; border-right:1.5px solid var(--ink); position:relative; overflow:hidden;}
   .team-card:nth-child(2n) .team-photo{background:linear-gradient(145deg,#cec6b0 0%,#bfb698 100%);}
   .team-photo::before{content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(44,74,110,.06) 0px, rgba(44,74,110,.06) 1px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, rgba(44,74,110,.06) 0px, rgba(44,74,110,.06) 1px, transparent 1px, transparent 40px);}
-  .team-photo .ph-icon{width:56px; height:56px; border:1px solid rgba(44,74,110,.25); display:flex; align-items:center; justify-content:center; z-index:1; background:rgba(243,239,226,.4); transition:transform .4s cubic-bezier(.16,1,.3,1);}
+  .team-photo .ph-icon{width:48px; height:48px; border:1px solid rgba(44,74,110,.25); display:flex; align-items:center; justify-content:center; z-index:1; background:rgba(243,239,226,.4); transition:transform .4s cubic-bezier(.16,1,.3,1);}
   .team-card:hover .team-photo .ph-icon{transform:scale(1.08) rotate(-4deg);}
-  .team-photo .ph-icon svg{width:26px; height:26px; opacity:.4;}
-  .team-photo span{z-index:1; letter-spacing:.1em; text-transform:uppercase; opacity:.75;}
-  .team-info{padding:22px 24px 24px; position:relative;}
+  .team-photo .ph-icon svg{width:22px; height:22px; opacity:.4;}
+  .team-photo span{z-index:1; letter-spacing:.08em; text-transform:uppercase; opacity:.75; font-size:9.5px;}
+  .team-info{padding:20px 20px 20px 22px; position:relative; flex:1; display:flex; flex-direction:column; justify-content:center;}
   .team-info .role{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;}
-  .team-info h3{font-size:18px; margin-bottom:10px; font-family:'Source Serif 4',serif; font-weight:700;}
-  .team-info p{font-size:13px; color:var(--ink-dim); line-height:1.55;}
+  .team-info h3{font-size:17px; margin-bottom:8px; font-family:'Source Serif 4',serif; font-weight:700;}
+  .team-info p{font-size:12.5px; color:var(--ink-dim); line-height:1.5;}
   .team-info .open-hint{transition:gap .25s ease;}
   .team-card:hover .team-info .open-hint{gap:10px;}
   @media(max-width:780px){.team-grid{grid-template-columns:1fr;}}
 
-  .team-grid-duo{display:grid; grid-template-columns:repeat(2, minmax(260px,320px)); gap:0; border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink); margin-top:24px; justify-content:start;}
-  @media(max-width:880px){.team-photo{aspect-ratio:3/4;}}
-  @media(max-width:600px){.team-grid-duo{grid-template-columns:repeat(2, minmax(0,1fr));}}
-  @media(max-width:480px){.team-info{padding:16px 14px 18px;} .team-info h3{font-size:15px;} .team-info p{font-size:12px;}}
+  .team-grid-duo{display:grid; grid-template-columns:repeat(2, minmax(450px,630px)); gap:0; border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink); margin-top:24px; justify-content:center;}
+  @media(max-width:880px){.team-photo{width:38%;}}
+  @media(max-width:1000px){.team-grid-duo{grid-template-columns:repeat(2, minmax(0,1fr));} .team-card{flex-direction:column;} .team-photo{width:100%; aspect-ratio:16/10; border-right:none; border-bottom:1.5px solid var(--ink);}}
+  @media(max-width:480px){.team-info{padding:14px 12px 16px;} .team-info h3{font-size:14px;} .team-info p{font-size:11px;}}
 
   /* CODEX */
   .codex-top{text-align:center; max-width:780px; margin:0 auto 8px;}
@@ -859,10 +863,10 @@
     <div class="file-id"><span class="dash"></span><span class="uk">Процес</span><span class="en">Process</span></div>
     <h2 style="font-size:clamp(24px,3vw,36px);"><span class="uk">4 етапи співпраці</span><span class="en">4 stages of engagement</span></h2>
     <div class="process-row">
-      <div class="pstep"><svg class="pframe-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect class="pframe-rect" x="0" y="0" width="100" height="100" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><div class="pstep-body"><span class="pnum">STEP 01</span><h4><span class="uk">Запит і кваліфікація</span><span class="en">Intake &amp; qualification</span></h4><p><span class="uk">Визначення масштабу та класу наслідків об'єкта.</span><span class="en">Defining the scope and consequence class.</span></p></div></div>
-      <div class="pstep"><svg class="pframe-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect class="pframe-rect" x="0" y="0" width="100" height="100" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><div class="pstep-body"><span class="pnum">STEP 02</span><h4><span class="uk">Інструментальний аудит</span><span class="en">Instrumental audit</span></h4><p><span class="uk">VT / UT / MT діагностика, лабораторія, 3D-сканування.</span><span class="en">VT / UT / MT diagnostics, lab analysis, 3D scanning.</span></p></div></div>
-      <div class="pstep"><svg class="pframe-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect class="pframe-rect" x="0" y="0" width="100" height="100" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><div class="pstep-body"><span class="pnum">STEP 03</span><h4><span class="uk">Фінансова трансформація</span><span class="en">Financial translation</span></h4><p><span class="uk">Дефекти перетворюються на розрахунок CAPEX.</span><span class="en">Defects converted into a CAPEX calculation.</span></p></div></div>
-      <div class="pstep"><svg class="pframe-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect class="pframe-rect" x="0" y="0" width="100" height="100" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><div class="pstep-body"><span class="pnum">STEP 04</span><h4><span class="uk">Протокол визначеності</span><span class="en">Verdict &amp; protocol</span></h4><p><span class="uk">Висновок — підстава для рішення чи реєстрації в [Держреєстр].</span><span class="en">A verdict — grounds for a decision or state registration.</span></p></div></div>
+      <div class="pstep"><span class="pframe-side pframe-top"></span><span class="pframe-side pframe-right"></span><span class="pframe-side pframe-bottom"></span><span class="pframe-side pframe-left"></span><div class="pstep-body"><span class="pnum">STEP 01</span><h4><span class="uk">Запит і кваліфікація</span><span class="en">Intake &amp; qualification</span></h4><p><span class="uk">Визначення масштабу та класу наслідків об'єкта.</span><span class="en">Defining the scope and consequence class.</span></p></div></div>
+      <div class="pstep"><span class="pframe-side pframe-top"></span><span class="pframe-side pframe-right"></span><span class="pframe-side pframe-bottom"></span><span class="pframe-side pframe-left"></span><div class="pstep-body"><span class="pnum">STEP 02</span><h4><span class="uk">Інструментальний аудит</span><span class="en">Instrumental audit</span></h4><p><span class="uk">VT / UT / MT діагностика, лабораторія, 3D-сканування.</span><span class="en">VT / UT / MT diagnostics, lab analysis, 3D scanning.</span></p></div></div>
+      <div class="pstep"><span class="pframe-side pframe-top"></span><span class="pframe-side pframe-right"></span><span class="pframe-side pframe-bottom"></span><span class="pframe-side pframe-left"></span><div class="pstep-body"><span class="pnum">STEP 03</span><h4><span class="uk">Фінансова трансформація</span><span class="en">Financial translation</span></h4><p><span class="uk">Дефекти перетворюються на розрахунок CAPEX.</span><span class="en">Defects converted into a CAPEX calculation.</span></p></div></div>
+      <div class="pstep"><span class="pframe-side pframe-top"></span><span class="pframe-side pframe-right"></span><span class="pframe-side pframe-bottom"></span><span class="pframe-side pframe-left"></span><div class="pstep-body"><span class="pnum">STEP 04</span><h4><span class="uk">Протокол визначеності</span><span class="en">Verdict &amp; protocol</span></h4><p><span class="uk">Висновок — підстава для рішення чи реєстрації в [Держреєстр].</span><span class="en">A verdict — grounds for a decision or state registration.</span></p></div></div>
     </div>
   </div>
 </section>
@@ -1435,63 +1439,63 @@
     apply(0);
   })();
 
-  /* ── PROCESS section: full-screen sticky, steps + corner brackets draw in sync with scroll ── */
+  /* ── PROCESS section: steps + frame draw in one after another, triggered once when scrolled into view ── */
   (function(){
     const section = document.getElementById('processSection');
     if (!section) return;
     const steps = Array.from(section.querySelectorAll('.pstep'));
+    if (!steps.length) return;
 
-    const SCROLL_DIST = window.innerHeight * 1.5;
+    const timers = new WeakMap();
 
-    section.style.position  = 'sticky';
-    section.style.top       = '0';
-    section.style.minHeight = '100vh';
+    function getSides(step){
+      return [
+        step.querySelector('.pframe-top'),
+        step.querySelector('.pframe-right'),
+        step.querySelector('.pframe-bottom'),
+        step.querySelector('.pframe-left')
+      ].filter(Boolean);
+    }
 
-    const wrapper = document.createElement('div');
-    wrapper.style.height = Math.max(window.innerHeight + SCROLL_DIST, section.scrollHeight + SCROLL_DIST) + 'px';
-    wrapper.style.position = 'relative';
-    section.parentNode.insertBefore(wrapper, section);
-    wrapper.appendChild(section);
+    function clearTimers(step){
+      const list = timers.get(step);
+      if (list) list.forEach(id => clearTimeout(id));
+      timers.set(step, []);
+    }
 
-    function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
-    function easeOut(t){return 1-(1-t)*(1-t);}
+    function drawIn(step){
+      clearTimers(step);
+      step.classList.add('visible');
+      const sides = getSides(step);
+      const ids = [];
+      sides.forEach((side, i) => {
+        side.style.transition = 'transform .3s ease';
+        ids.push(setTimeout(() => { side.style.transform = 'scale(1)'; }, i * 130));
+      });
+      timers.set(step, ids);
+    }
 
-    function apply(p){
-      const n = steps.length;
-      steps.forEach((step, i) => {
-        const start = (i / n) * 0.8;
-        const end   = start + (1 / n) * 0.75;
-        const t = easeOut(clamp((p - start) / (end - start), 0, 1));
-
-        const body = step.querySelector('.pstep-body');
-        if (body) {
-          body.style.opacity   = t;
-          body.style.transform = `translateY(${(1 - t) * 20}px)`;
-        }
-
-        const frameRect = step.querySelector('.pframe-rect');
-        if (frameRect) {
-          frameRect.style.strokeDashoffset = (100 - t * 100).toString();
-        }
+    function drawOut(step){
+      clearTimers(step);
+      step.classList.remove('visible');
+      const sides = getSides(step);
+      sides.forEach(side => {
+        side.style.transition = 'transform .25s ease';
+        side.style.transform = 'scale(0)';
       });
     }
 
-    let sv = 0, tv = 0;
-    function lerp(a,b,t){return a+(b-a)*t;}
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          drawIn(entry.target);
+        } else {
+          drawOut(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
 
-    window.addEventListener('scroll', () => {
-      const wrapTop = wrapper.getBoundingClientRect().top + window.scrollY;
-      const scrolled = window.scrollY - wrapTop;
-      tv = clamp(scrolled / SCROLL_DIST, 0, 1);
-    }, {passive:true});
-
-    (function tick(){
-      sv = lerp(sv, tv, .14);
-      apply(sv);
-      requestAnimationFrame(tick);
-    })();
-
-    apply(0);
+    steps.forEach(step => io.observe(step));
   })();
 
   /* ── Generic helper: sticky full-screen section, items reveal one after another in sync with scroll ── */
