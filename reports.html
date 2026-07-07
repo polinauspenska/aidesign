@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="uk" data-lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Звіти — [КОМПАНІЯ ADVISORY]</title>
+<meta name="description" content="Що таке технічне обстеження, планова та позачергова паспортизація, і як виглядає звіт [КОМПАНІЯ ADVISORY]. Зразки сторінок технічного звіту.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,ital,wght@8..60,0,300;8..60,0,400;8..60,0,700;8..60,1,300;8..60,1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Lifecycle timeline */
+  .lifecycle-row{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:50px; border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink);}
+  .lc-step{padding:26px 22px; border-right:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); position:relative;}
+  .lc-step .lc-num{font-family:'IBM Plex Mono',monospace; color:var(--blue); font-size:11px; display:block; margin-bottom:12px; letter-spacing:.08em;}
+  .lc-step h4{font-size:15px; margin-bottom:10px;}
+  .lc-step p{font-size:13px; color:var(--ink-dim); line-height:1.6;}
+  .lc-step:not(:last-child)::after{content:'→'; position:absolute; right:-13px; top:50%; transform:translateY(-50%); color:var(--blue); font-family:'IBM Plex Mono',monospace; font-size:16px; z-index:2; background:var(--paper); width:24px; text-align:center;}
+  @media(max-width:880px){.lifecycle-row{grid-template-columns:1fr 1fr;} .lc-step:not(:last-child)::after{display:none;}}
+  @media(max-width:560px){.lifecycle-row{grid-template-columns:1fr;}}
+
+  /* Survey type cards */
+  .survey-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:44px;}
+  .survey-card{border:1.5px solid var(--ink); padding:32px; background:var(--paper);}
+  .survey-card .stag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:14px;}
+  .survey-card h3{font-size:19px; margin-bottom:14px;}
+  .survey-card p{font-size:14px; color:var(--ink-dim); line-height:1.7; margin-bottom:16px;}
+  .survey-card ul{margin:0;}
+  .survey-card ul li{list-style:none; display:flex; gap:10px; font-size:13px; color:var(--ink-dim); padding:8px 0; border-top:1px dashed var(--line-strong);}
+  .survey-card ul li .tick{font-family:'IBM Plex Mono',monospace; color:var(--blue); flex-shrink:0;}
+  @media(max-width:780px){.survey-grid{grid-template-columns:1fr;}}
+
+  /* What's assessed grid */
+  .assess-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px;}
+  .assess-card{border:1.5px solid var(--ink); padding:26px; background:var(--paper);}
+  .assess-card .anum{font-family:'IBM Plex Mono',monospace; color:var(--blue); font-size:22px; font-weight:600;}
+  .assess-card h4{font-size:15px; margin:12px 0 8px;}
+  .assess-card p{font-size:12.5px; color:var(--ink-dim); line-height:1.6;}
+  @media(max-width:880px){.assess-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.assess-grid{grid-template-columns:1fr;}}
+
+  /* Report sample scans */
+  .scan-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:44px;}
+  .scan-card{cursor:pointer;}
+  .scan-page{aspect-ratio:210/297; background:var(--paper); border:1.5px solid var(--ink); position:relative; overflow:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;}
+  .scan-card:hover .scan-page{transform:translateY(-4px); box-shadow:0 16px 32px -16px rgba(28,27,23,.35);}
+  .scan-page::before{content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(44,74,110,.06) 0px, rgba(44,74,110,.06) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(44,74,110,.06) 0px, rgba(44,74,110,.06) 1px, transparent 1px, transparent 20px);}
+  .scan-lines{position:absolute; left:14%; right:14%; top:18%;}
+  .scan-lines span{display:block; height:4px; background:rgba(44,74,110,.15); margin-bottom:10px; border-radius:1px;}
+  .scan-lines span:nth-child(1){width:70%;}
+  .scan-lines span:nth-child(2){width:100%;}
+  .scan-lines span:nth-child(3){width:85%;}
+  .scan-lines span:nth-child(4){width:92%;}
+  .scan-lines span:nth-child(5){width:60%;}
+  .scan-stamp{position:absolute; bottom:16%; right:12%; border:1.5px solid var(--red); color:var(--red); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.06em; padding:6px 10px; transform:rotate(-8deg); opacity:.7;}
+  .scan-caption{margin-top:12px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-dim); text-align:center;}
+  @media(max-width:880px){.scan-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.scan-grid{grid-template-columns:1fr 1fr; gap:14px;}}
+
+  /* Concept definition cards */
+  .concept-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:44px;}
+  .concept-card{border:1.5px solid var(--ink); padding:32px; background:var(--ink); color:var(--paper);}
+  .concept-card h3{font-size:19px; margin-bottom:14px; color:var(--paper); font-family:'Source Serif 4',serif;}
+  .concept-card p{font-size:14px; color:#b7b29e; line-height:1.7;}
+  @media(max-width:780px){.concept-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="wrap navrow">
+    <a href="index.html" class="logo">[КОМПАНІЯ ADVISORY]<span class="stamp-dot"></span></a>
+    <nav class="links">
+      <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
+      <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
+      <a href="cases.html"><span class="uk">Кейси</span><span class="en">Cases</span></a>
+      <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+      <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-btn" id="langToggle">EN</button>
+      <a class="btn" href="contact.html"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
+      <button class="burger-btn" id="burgerBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="wrap">
+      <nav>
+        <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
+        <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
+        <a href="cases.html"><span class="uk">Кейси</span><span class="en">Cases</span></a>
+        <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+        <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
+      </nav>
+      <div class="mobile-menu-foot">
+        <a class="btn" href="contact.html"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html"><span class="uk">Головна</span><span class="en">Home</span></a> / <span class="uk">Звіти</span><span class="en">Reports</span></div>
+    <div class="file-id"><span class="dash"></span><span class="uk">Технічний звіт</span><span class="en">Technical report</span></div>
+    <h1><span class="uk">Що таке технічне обстеження і як виглядає <em>результат</em></span><span class="en">What technical surveying is, and what the <em>result</em> looks like</span></h1>
+    <p class="lead"><span class="uk">Кожен етап життя будівлі вимагає свого рівня технічного супроводу. Пояснюємо логіку та показуємо зразки сторінок реального звіту.</span><span class="en">Every stage of a building's life requires a different level of engineering oversight. We explain the logic and show sample pages from a real report.</span></p>
+  </div>
+</section>
+
+<!-- BUILDING LIFECYCLE -->
+<section class="tight">
+  <div class="wrap">
+    <div class="file-id"><span class="dash"></span><span class="uk">Життєвий цикл будівлі</span><span class="en">Building lifecycle</span></div>
+    <h2 style="font-size:clamp(22px,2.8vw,30px); max-width:680px;"><span class="uk">Технічний супровід потрібен на кожному етапі</span><span class="en">Engineering oversight is needed at every stage</span></h2>
+    <div class="lifecycle-row">
+      <div class="lc-step"><span class="lc-num">01</span><h4><span class="uk">Проєктування</span><span class="en">Design</span></h4><p><span class="uk">Інженерний фільтр концепції, аналіз обмежень ділянки.</span><span class="en">Engineering filter for the concept, site constraint analysis.</span></p></div>
+      <div class="lc-step"><span class="lc-num">02</span><h4><span class="uk">Будівництво</span><span class="en">Construction</span></h4><p><span class="uk">Моніторинг несучої здатності, контроль якості робіт.</span><span class="en">Load-capacity monitoring, quality control of works.</span></p></div>
+      <div class="lc-step"><span class="lc-num">03</span><h4><span class="uk">Експлуатація</span><span class="en">Operation</span></h4><p><span class="uk">Планові обстеження, паспортизація, моніторинг деформацій.</span><span class="en">Scheduled surveys, passportization, deformation monitoring.</span></p></div>
+      <div class="lc-step"><span class="lc-num">04</span><h4><span class="uk">Реконструкція / Ліквідація</span><span class="en">Reconstruction / Decommissioning</span></h4><p><span class="uk">Оцінка залишкового ресурсу, протокол визначеності.</span><span class="en">Residual-life assessment, verdict protocol.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SURVEY TYPES -->
+<section class="tight" style="background:var(--panel); border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink);">
+  <div class="wrap">
+    <div class="file-id"><span class="dash"></span><span class="uk">Види обстеження</span><span class="en">Survey types</span></div>
+    <h2 style="font-size:clamp(22px,2.8vw,30px); max-width:680px;"><span class="uk">Планове чи позачергове?</span><span class="en">Scheduled or unscheduled?</span></h2>
+    <div class="survey-grid">
+      <div class="survey-card">
+        <span class="stag"><span class="uk">Планове</span><span class="en">Scheduled</span></span>
+        <h3><span class="uk">Регулярна паспортизація</span><span class="en">Regular passportization</span></h3>
+        <p><span class="uk">Проводиться з періодичністю, визначеною класом наслідків будівлі — фіксує поточний стан і накопичену зміну з часом.</span><span class="en">Conducted at intervals defined by the building's consequence class — records current condition and change accumulated over time.</span></p>
+        <ul>
+          <li><span class="tick">→</span><span class="uk">Планові інтервали: 5, 10 або 25 років залежно від класу</span><span class="en">Scheduled intervals: 5, 10 or 25 years depending on class</span></li>
+          <li><span class="tick">→</span><span class="uk">Базовий візуальний і інструментальний контроль</span><span class="en">Baseline visual and instrumental inspection</span></li>
+          <li><span class="tick">→</span><span class="uk">Офіційна реєстрація в [Держреєстр]</span><span class="en">Official registration in the state register</span></li>
+        </ul>
+      </div>
+      <div class="survey-card">
+        <span class="stag"><span class="uk">Позачергове</span><span class="en">Unscheduled</span></span>
+        <h3><span class="uk">Реакція на подію</span><span class="en">Event-driven response</span></h3>
+        <p><span class="uk">Призначається після аварії, пожежі, вибуху, надмірних навантажень або перед купівлею/реконструкцією об'єкта.</span><span class="en">Ordered after an accident, fire, explosion, excessive loads, or before acquiring/reconstructing an asset.</span></p>
+        <ul>
+          <li><span class="tick">→</span><span class="uk">Термінове реагування, часто протягом днів</span><span class="en">Urgent response, often within days</span></li>
+          <li><span class="tick">→</span><span class="uk">Поглиблена діагностика проблемної зони</span><span class="en">In-depth diagnostics of the problem area</span></li>
+          <li><span class="tick">→</span><span class="uk">Висновок може використовуватись у суді чи страховій</span><span class="en">The verdict may be used in court or by insurers</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S ASSESSED -->
+<section class="tight">
+  <div class="wrap">
+    <div class="file-id"><span class="dash"></span><span class="uk">Що оцінюється</span><span class="en">What's assessed</span></div>
+    <h2 style="font-size:clamp(22px,2.8vw,30px); max-width:680px;"><span class="uk">Складові технічного обстеження</span><span class="en">Components of a technical survey</span></h2>
+    <div class="assess-grid">
+      <div class="assess-card"><div class="anum">01</div><h4><span class="uk">Несучі конструкції</span><span class="en">Load-bearing structures</span></h4><p><span class="uk">Фактична несуча здатність, наявність тріщин і деформацій.</span><span class="en">Actual load capacity, cracks and deformations.</span></p></div>
+      <div class="assess-card"><div class="anum">02</div><h4><span class="uk">Основи та фундаменти</span><span class="en">Foundations</span></h4><p><span class="uk">Стан ґрунтової основи, осідання, підтоплення.</span><span class="en">Soil base condition, settlement, flooding.</span></p></div>
+      <div class="assess-card"><div class="anum">03</div><h4><span class="uk">Інженерні мережі</span><span class="en">Engineering systems</span></h4><p><span class="uk">Стан комунікацій, відповідність нормам експлуатації.</span><span class="en">Condition of utilities, compliance with operating norms.</span></p></div>
+      <div class="assess-card"><div class="anum">04</div><h4><span class="uk">Огороджувальні конструкції</span><span class="en">Envelope elements</span></h4><p><span class="uk">Фасади, покрівля, теплотехнічні характеристики.</span><span class="en">Facades, roofing, thermal performance.</span></p></div>
+      <div class="assess-card"><div class="anum">05</div><h4><span class="uk">Пожежна безпека</span><span class="en">Fire safety</span></h4><p><span class="uk">Відповідність шляхів евакуації та протипожежних систем.</span><span class="en">Compliance of evacuation routes and fire systems.</span></p></div>
+      <div class="assess-card"><div class="anum">06</div><h4><span class="uk">Документація</span><span class="en">Documentation</span></h4><p><span class="uk">Відповідність фактичного стану проєктній документації.</span><span class="en">Match between actual condition and design documentation.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE REPORT SCANS -->
+<section class="tight" style="background:var(--panel); border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink);">
+  <div class="wrap">
+    <div class="file-id"><span class="dash"></span><span class="uk">Зразок звіту</span><span class="en">Sample report</span></div>
+    <h2 style="font-size:clamp(22px,2.8vw,30px); max-width:680px;"><span class="uk">Як виглядає результат обстеження</span><span class="en">What the survey result looks like</span></h2>
+    <p class="lead" style="margin-top:16px;"><span class="uk">Нижче — зразкові сторінки формату звіту. Дані знеособлені та наведені виключно для ілюстрації структури документа.</span><span class="en">Below are sample pages illustrating the report format. Data is anonymised and shown solely to illustrate the document's structure.</span></p>
+
+    <div class="scan-grid">
+      <div class="scan-card">
+        <div class="scan-page">
+          <div class="scan-lines"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="scan-stamp"><span class="uk">ЗРАЗОК</span><span class="en">SAMPLE</span></div>
+        </div>
+        <div class="scan-caption"><span class="uk">Титульна сторінка</span><span class="en">Title page</span></div>
+      </div>
+      <div class="scan-card">
+        <div class="scan-page">
+          <div class="scan-lines"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="scan-stamp"><span class="uk">ЗРАЗОК</span><span class="en">SAMPLE</span></div>
+        </div>
+        <div class="scan-caption"><span class="uk">Опис об'єкта</span><span class="en">Asset description</span></div>
+      </div>
+      <div class="scan-card">
+        <div class="scan-page">
+          <div class="scan-lines"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="scan-stamp"><span class="uk">ЗРАЗОК</span><span class="en">SAMPLE</span></div>
+        </div>
+        <div class="scan-caption"><span class="uk">Дефектна відомість</span><span class="en">Defect log</span></div>
+      </div>
+      <div class="scan-card">
+        <div class="scan-page">
+          <div class="scan-lines"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="scan-stamp"><span class="uk">ЗРАЗОК</span><span class="en">SAMPLE</span></div>
+        </div>
+        <div class="scan-caption"><span class="uk">Висновок і рекомендації</span><span class="en">Verdict &amp; recommendations</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY CONCEPTS -->
+<section class="tight">
+  <div class="wrap">
+    <div class="file-id"><span class="dash"></span><span class="uk">Поняття, які варто розрізняти</span><span class="en">Terms worth distinguishing</span></div>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h3><span class="uk">Паспортизація</span><span class="en">Passportization</span></h3>
+        <p><span class="uk">Регулярна процедура фіксації технічного стану будівлі без втручання в конструкції. Результат — документ, що підтверджує придатність об'єкта до подальшої експлуатації на визначений термін.</span><span class="en">A regular procedure recording a building's technical condition without altering its structures. The result is a document confirming the asset's fitness for continued use for a defined period.</span></p>
+      </div>
+      <div class="concept-card">
+        <h3><span class="uk">Реконструкція</span><span class="en">Reconstruction</span></h3>
+        <p><span class="uk">Зміна техніко-економічних показників будівлі: перепланування, підсилення конструкцій, зміна призначення. Потребує окремого проєкту та інженерного супроводу на кожному етапі робіт.</span><span class="en">A change in the building's technical and economic parameters: reconfiguration, structural reinforcement, change of use. Requires a separate project and engineering support at every stage of works.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="wrap">
+    <div class="file-id" style="justify-content:center;"><span class="dash"></span><span class="uk">Потрібен звіт по вашому об'єкту?</span><span class="en">Need a report for your asset?</span></div>
+    <h2><span class="uk">Замовте технічне обстеження</span><span class="en">Order a technical survey</span></h2>
+    <div class="hero-cta">
+      <a class="btn" href="contact.html"><span class="uk">Залишити заявку</span><span class="en">Submit a request</span></a>
+      <a class="btn btn-ghost" href="services.html"><span class="uk">Переглянути послуги</span><span class="en">View services</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>[КОМПАНІЯ ADVISORY] © 20XX</div>
+    <div style="display:flex; gap:24px;"><a href="reports.html"><span class="uk">Звіти</span><span class="en">Reports</span></a><a href="mailto:[email]">[email]</a><a href="tel:[телефон]">[телефон]</a></div>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('langToggle');
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-lang') === 'uk' ? 'en' : 'uk';
+    html.setAttribute('data-lang', next);
+    html.setAttribute('lang', next);
+    btn.textContent = next === 'uk' ? 'EN' : 'UA';
+  });
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (burgerBtn && mobileMenu) {
+    function closeMenu(){
+      burgerBtn.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      burgerBtn.classList.toggle('open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => { if (window.innerWidth > 880) closeMenu(); });
+  }
+
+  document.querySelectorAll('.lc-step, .survey-card, .assess-card, .scan-card, .concept-card').forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i % 6) * 0.06 + 's';
+  });
+  document.querySelectorAll('.lifecycle-row, .survey-grid, .assess-grid, .scan-grid, .concept-grid').forEach(grid => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { grid.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); io.unobserve(grid); } });
+    }, { threshold: 0.1 });
+    io.observe(grid);
+  });
+</script>
+</body>
+</html>
