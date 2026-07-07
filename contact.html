@@ -30,7 +30,10 @@
       <button class="burger-btn" id="burgerBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
+  </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">×</button>
     <div class="wrap">
       <nav>
       <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
@@ -45,7 +48,6 @@
       </div>
     </div>
   </div>
-</header>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
@@ -169,6 +171,8 @@
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
     window.addEventListener('resize', () => { if (window.innerWidth > 880) closeMenu(); });
   }
 
