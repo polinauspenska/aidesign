@@ -19,12 +19,29 @@
     <nav class="links">
       <a href="../services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
       <a href="../about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
+      <a href="../index.html#cases"><span class="uk">Кейси</span><span class="en">Cases</span></a>
       <a href="index.html" class="current"><span class="uk">Статті</span><span class="en">Articles</span></a>
       <a href="../contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
     </nav>
     <div class="nav-right">
       <button class="lang-btn" id="langToggle">EN</button>
       <a class="btn" href="../contact.html"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
+    
+      <button class="burger-btn" id="burgerBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="wrap">
+      <nav>
+      <a href="../services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
+      <a href="../about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
+      <a href="../index.html#cases"><span class="uk">Кейси</span><span class="en">Cases</span></a>
+      <a href="index.html" class="current"><span class="uk">Статті</span><span class="en">Articles</span></a>
+      <a href="../contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
+    </nav>
+      <div class="mobile-menu-foot">
+        <a class="btn" href="../contact.html"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
+      </div>
     </div>
   </div>
 </header>
@@ -139,6 +156,27 @@
     html.setAttribute('lang', next);
     btn.textContent = next === 'uk' ? 'EN' : 'UA';
   });
+
+  /* Mobile burger menu */
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (burgerBtn && mobileMenu) {
+    function closeMenu(){
+      burgerBtn.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      burgerBtn.classList.toggle('open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => { if (window.innerWidth > 880) closeMenu(); });
+  }
+
 
   document.querySelectorAll('.reveal').forEach(el => {
     const io = new IntersectionObserver((entries) => {

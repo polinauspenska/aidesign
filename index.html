@@ -81,6 +81,22 @@
   .btn-ghost:hover{background:var(--ink); color:var(--paper);}
   @media(max-width:880px){nav.links{display:none;}}
 
+  /* Mobile burger menu */
+  .burger-btn{display:none; flex-direction:column; justify-content:center; gap:5px; width:32px; height:24px; background:none; border:none; cursor:pointer; padding:0; flex-shrink:0;}
+  .burger-btn span{display:block; height:2px; background:var(--ink); width:100%; transition:transform .25s ease, opacity .25s ease;}
+  .burger-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger-btn.open span:nth-child(2){opacity:0;}
+  .burger-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .mobile-menu{position:fixed; top:72px; left:0; right:0; bottom:0; background:var(--paper); z-index:49; transform:translateY(-12px); opacity:0; pointer-events:none; transition:transform .28s ease, opacity .28s ease; overflow-y:auto; border-top:1.5px solid var(--ink);}
+  .mobile-menu.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+  .mobile-menu .wrap{padding:32px;}
+  .mobile-menu nav{display:flex; flex-direction:column;}
+  .mobile-menu nav a{font-family:'IBM Plex Mono',monospace; font-size:16px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); padding:18px 0; border-bottom:1px solid var(--line-strong);}
+  .mobile-menu nav a.current{color:var(--blue);}
+  .mobile-menu-foot{margin-top:28px; display:flex; flex-direction:column; gap:14px; align-items:flex-start;}
+  @media(max-width:880px){.burger-btn{display:flex;}}
+  @media(min-width:881px){.mobile-menu{display:none;}}
+
   section{position:relative; z-index:1; padding:100px 0;}
   section.tight{padding:72px 0;}
   .file-id{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); display:flex; align-items:center; gap:10px; margin-bottom:20px;}
@@ -602,15 +618,30 @@
   <div class="wrap navrow">
     <div class="logo">[КОМПАНІЯ ADVISORY]<span class="stamp-dot"></span></div>
     <nav class="links">
-      <a href="#directions"><span class="uk">01 Аудит</span><span class="en">01 Audit</span></a>
-      <a href="#founderSection"><span class="uk">02 Хто ми</span><span class="en">02 Who we are</span></a>
-      <a href="#advisory"><span class="uk">03 Advisory</span><span class="en">03 Advisory</span></a>
-      <a href="#cases"><span class="uk">04 Кейси</span><span class="en">04 Cases</span></a>
-      <a href="#faq">05 FAQ</a>
+      <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
+      <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
+      <a href="#cases"><span class="uk">Кейси</span><span class="en">Cases</span></a>
+      <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+      <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
     </nav>
     <div class="nav-right">
       <button class="lang-btn" id="langToggle">EN</button>
       <a class="btn" href="#contact"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
+      <button class="burger-btn" id="burgerBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="wrap">
+      <nav>
+        <a href="services.html"><span class="uk">Послуги</span><span class="en">Services</span></a>
+        <a href="about.html"><span class="uk">Про нас</span><span class="en">About</span></a>
+        <a href="#cases"><span class="uk">Кейси</span><span class="en">Cases</span></a>
+        <a href="blog/index.html"><span class="uk">Статті</span><span class="en">Articles</span></a>
+        <a href="contact.html"><span class="uk">Контакти</span><span class="en">Contact</span></a>
+      </nav>
+      <div class="mobile-menu-foot">
+        <a class="btn" href="#contact"><span class="uk">Зв'язатись</span><span class="en">Get in touch</span></a>
+      </div>
     </div>
   </div>
 </header>
@@ -1088,6 +1119,27 @@
     html.setAttribute('lang', next);
     btn.textContent = next === 'uk' ? 'EN' : 'UA';
   });
+
+  /* Mobile burger menu */
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (burgerBtn && mobileMenu) {
+    function closeMenu(){
+      burgerBtn.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      burgerBtn.classList.toggle('open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => { if (window.innerWidth > 880) closeMenu(); });
+  }
+
 
   /* ── Full-screen sticky section: each stat reveals one by one as user scrolls ── */
   (function(){
